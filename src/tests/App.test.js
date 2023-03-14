@@ -92,6 +92,9 @@ it('É possível aplicar um filtro numérico', async () => {
   expect(await screen.findByText(/hoth/i)).toBeInTheDocument();
 });
 
+it.todo('É possível ordenar os planetas', async () => {
+});
+
 it('Testa erro no fetch dos planetas', async () => {
   global.fetch = jest.fn().mockRejectedValue(new Error('Deu ruim'));
 
