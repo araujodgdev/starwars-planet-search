@@ -1,6 +1,7 @@
 import React, { useCallback, useContext, useEffect } from 'react';
 import PlanetsContext from './context/PlanetsContext';
 import Table from './components/Table';
+import FormFilters from './components/FormFilters';
 
 const swapiEndpoint = 'https://swapi.dev/api/planets';
 
@@ -29,7 +30,7 @@ function App() {
   return (
     <div>
       <h1>Star Wars Planets</h1>
-
+      <FormFilters />
       <Table />
     </div>
   );
