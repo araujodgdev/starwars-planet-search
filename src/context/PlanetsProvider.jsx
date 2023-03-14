@@ -95,6 +95,7 @@ export default function PlanetsProvider({ children }) {
         setFilteredPlanets(planetsFilteredByComparison);
       }
     });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filters, planets]);
 
   useEffect(() => {
