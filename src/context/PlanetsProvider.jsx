@@ -2,18 +2,22 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 import PlanetsContext from './PlanetsContext';
 
+export const initialColumnFilterOptions = [
+  'population',
+  'orbital_period',
+  'diameter',
+  'rotation_period',
+  'surface_water',
+];
+
 export default function PlanetsProvider({ children }) {
   const [planets, setPlanets] = useState([]);
   const [filteredPlanets, setFilteredPlanets] = useState([]);
   const [nameFilter, setNameFilter] = useState('');
   const [columnFilter, setColumnFilter] = useState('population');
-  const [columnFilterOptions, setColumnFilterOptions] = useState([
-    'population',
-    'orbital_period',
-    'diameter',
-    'rotation_period',
-    'surface_water',
-  ]);
+  const [columnFilterOptions, setColumnFilterOptions] = useState(
+    initialColumnFilterOptions,
+  );
   const [comparisonFilter, setComparisonFilter] = useState('maior que');
   const [filterValue, setFilterValue] = useState('0');
   const [filters, setFilters] = useState([]);

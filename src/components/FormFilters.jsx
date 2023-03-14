@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import PlanetsContext from '../context/PlanetsContext';
+import { initialColumnFilterOptions } from '../context/PlanetsProvider';
 
 export default function FormFilters() {
   const {
@@ -9,13 +10,14 @@ export default function FormFilters() {
     columnFilter,
     setColumnFilter,
     columnFilterOptions,
-    // setColumnFilterOptions,
+    setColumnFilterOptions,
     comparisonFilter,
     setComparisonFilter,
     filterValue,
     setFilterValue,
     filters,
     setFilters,
+    setFilteredPlanets,
   } = useContext(PlanetsContext);
 
   function handleFilter(e) {
@@ -26,6 +28,20 @@ export default function FormFilters() {
       value: filterValue,
     };
     setFilters([...filters, newFilter]);
+  }
+
+  function handleRemoveFilter(filter) {
+    const newFilters = filters.filter((f) => f.column !== filter.column);
+    const newColumnFilterOptions = initialColumnFilterOptions.reduce((acc, crr) => {
+      if (!newFilters.some((f) => f.column === crr)) {
+        acc.push(crr);
+      }
+      return acc;
+    }, []);
+    setFilteredPlanets([]);
+    setFilters(newFilters);
+    setColumnFilterOptions(newColumnFilterOptions);
+    setColumnFilter(newColumnFilterOptions[0]);
   }
 
   return (
@@ -72,12 +88,19 @@ export default function FormFilters() {
           <button type="submit" data-testid="button-filter">
             Filtrar
           </button>
+          <button
+            type="button"
+            onClick={ () => setFilters([]) }
+            data-testid="button-remove-filters"
+          >
+            Remover Filtros
+          </button>
         </fieldset>
       </form>
       {filters.map((filter) => (
-        <p key={ uuidv4() }>
+        <p key={ uuidv4() } data-testid="filter">
           {`${filter.column} ${filter.comparison} ${filter.value}`}
-          <button type="button">
+          <button onClick={ () => handleRemoveFilter(filter) } type="button">
             X
           </button>
         </p>
