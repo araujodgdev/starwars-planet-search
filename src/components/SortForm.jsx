@@ -13,12 +13,13 @@ export default function SortForm() {
 
   function handlePlanetsSort(e) {
     e.preventDefault();
+    const negativeNumber = -1;
     const { column, sort } = order;
     const sortedFilteredPlanets = [...filteredPlanets].sort((a, b) => {
       switch (sort) {
       case 'ASC':
         if (b[column] === 'unknown') {
-          return -1;
+          return negativeNumber;
         }
         return a[column] - b[column];
       default:
