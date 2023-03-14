@@ -21,6 +21,10 @@ export default function PlanetsProvider({ children }) {
   const [comparisonFilter, setComparisonFilter] = useState('maior que');
   const [filterValue, setFilterValue] = useState('0');
   const [filters, setFilters] = useState([]);
+  const [order, setOrder] = useState({
+    column: 'population',
+    sort: '',
+  });
 
   const hasNameFilter = nameFilter.length !== '';
 
@@ -42,6 +46,8 @@ export default function PlanetsProvider({ children }) {
       setFilterValue,
       filters,
       setFilters,
+      order,
+      setOrder,
     }),
     [
       planets,
@@ -52,6 +58,7 @@ export default function PlanetsProvider({ children }) {
       filterValue,
       columnFilterOptions,
       filters,
+      order,
     ],
   );
 
