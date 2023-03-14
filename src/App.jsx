@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import PlanetsContext from './context/PlanetsContext';
 import Table from './components/Table';
 import FormFilters from './components/FormFilters';
@@ -8,6 +8,8 @@ const swapiEndpoint = 'https://swapi.dev/api/planets';
 
 function App() {
   const { setPlanets } = useContext(PlanetsContext);
+  const [hasAnyError, setHasAnyError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const fetchPlanets = useCallback(async () => {
     try {
@@ -20,7 +22,8 @@ function App() {
       }, []);
       setPlanets(planetsWithoutResidentsKey);
     } catch (error) {
-      console.log(error.message);
+      setHasAnyError(true);
+      setErrorMessage(error.message);
     }
   }, [setPlanets]);
 
@@ -30,10 +33,16 @@ function App() {
 
   return (
     <div>
-      <h1>Star Wars Planets</h1>
-      <FormFilters />
-      <SortForm />
-      <Table />
+      {hasAnyError ? (
+        <p>{errorMessage}</p>
+      ) : (
+        <div>
+          <h1>Star Wars Planets</h1>
+          <FormFilters />
+          <SortForm />
+          <Table />
+        </div>
+      )}
     </div>
   );
 }

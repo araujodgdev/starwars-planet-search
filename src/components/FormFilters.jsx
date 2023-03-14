@@ -53,6 +53,7 @@ export default function FormFilters() {
             name="filterByName"
             id="filterByName"
             data-testid="name-filter"
+            placeholder="Filtrar por nome"
             value={ nameFilter }
             onChange={ ({ target }) => setNameFilter(target.value) }
           />
